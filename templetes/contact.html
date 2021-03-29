@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+.map-container-6 iframe{
+    left:0;
+    top:30px;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
+</style>
+<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('/static/images/book.jpg');">
+		<h2 class="ltext-105 cl0 txt-center">
+			Contact Us
+		</h2>
+	</section>
+<div class="container my-5">
+    <div  class="row">
+        <div  class="col-lg-6">
+            <div class="col-12">
+                <div class="my-5">
+                <h2>Contact Form</h2>
+            </div>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="col-12">
+                    {{ form.contact_name|as_crispy_field }}
+                </div>
+                <div class="col-12">
+                    {{ form.contact_email|as_crispy_field }}
+                </div>
+                <div class="col-12">
+                    {{ form.content|as_crispy_field }}
+                </div>
+                <div class="col-12">
+                     <button class="btn btn-success" type="submit">Send Email</button>
+                </div>
+            </form>
+        </div>
+            <div class="col-lg-6">
+                <div id="map-container-google-11" class="z-depth-1-half map-container-6" style="height: 400px">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3562.6812153615265!2d87.40011561499448!3d26.754547183195985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef679497a80a4f%3A0xf23f3ff16c291d!2sKerabari%20Police%20Station!5e0!3m2!1sen!2snp!4v1584698212367!5m2!1sen!2snp"
+                            width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock %}

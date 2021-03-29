@@ -1,0 +1,26 @@
+{% extends "post/basepost.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- {{ block.super }} -->
+    <h1>Upload Purano Books</h1>
+    <form method="POST" action="" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                {{ form.title|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.price|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.discount_price|as_crispy_field }}
+            </div>
+        </div>
+        {{ form.content|as_crispy_field }}
+        {{ form.image|as_crispy_field }}
+        {{ form.publish|as_crispy_field }}
+
+            <input type="submit" class="btn btn-success" value="Create Post"/>
+    </form>
+    
+{% endblock content %}

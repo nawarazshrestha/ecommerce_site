@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if messages %}
+    <div class="messages container mt-2">
+        {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{ message.tags }}{% endif %}" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        </div>
+        {% endfor %}
+    </div>
+  {% endif %}
+<div class="bg0 m-t-23 p-b-140">
+		<div class="container">
+			<div class="flex-w flex-sb-m p-b-52">
+				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+						All Products
+					</button>
+
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter="">
+						+2 Books
+					</button>
+
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter="">
+						LokSewa Books
+					</button>
+
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter="">
+						Novel
+					</button>
+
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter="">
+						Story Books
+					</button>
+				</div>
+
+				<div class="flex-w flex-c-m m-tb-10">
+					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+						Search
+					</div>
+				</div>
+
+				<!-- Search product -->
+				<div class="dis-none panel-search w-full p-t-10 p-b-15">
+					<div class="bor8 dis-flex p-l-15">
+						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+							<i class="zmdi zmdi-search"></i>
+						</button>
+						<form method="GET" action="">
+						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="q" placeholder="Search Products"value="{{ request.GET.q }}"/>
+						</form>
+					</div>
+				</div>
+            </div>
+
+			<div class="row isotope-grid">
+                {% for obj in object_list %}
+				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item *">
+					<div class="block2">
+						<div class="block2-pic hov-img0">
+                            {% if obj.image %}
+							<img src="{{ obj.image.url }}" alt="IMG-PRODUCT">
+                            {% endif %}
+
+							<a href="{{ obj.get_absolute_url }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+									Quick View
+								</a>
+						</div>
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="#" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									{{ obj.title }}
+								</a>
+								<span class="stext-105 cl3">
+									<del class="mr-2">${{ obj.discount_price }}</del>${{ obj.price }}
+								</span>
+							</div>
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="/static/images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/static/images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+            </div>
+            <div class="pagination">
+				<span class="step-links">
+					{% if object_list.has_previous %}
+						<a class="btn btn-outline-primary mb-4" href="?page=1">First</a>
+						<a class="btn btn-outline-primary mb-4" href="?page={{ object_list.previous_page_number }}
+						{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
+					{% endif %}
+					{% for num in object_list.paginator.page_range %}
+					{% if object_list.number == num %}
+						<a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+					{% elif num > object_list.number|add:'-3' and num < object_list.number|add:'3' %}
+					<a class="btn btn-outline-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+					{% endif %}
+					{% endfor %}
+					{% if object_list.has_next %}
+						<a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.paginator.num_pages }}">Next</a>
+						<a class="btn btn-outline-primary mb-4" href="?page={{ object_list.next_page_number }}
+						{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Last</a>
+					{% endif %}
+						</span>
+					</div>
+			</div>
+			</div>
+					{% endblock %}

@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" style="background-image: url(/static/images/heading-pages-02.jpg);">
+		<h2 class="l-text2 t-center">
+			Book Collections
+		</h2>
+		<p class="m-text13 t-center">
+			New Arrivals Book Collection 2020
+		</p>
+	</section>
+<section class="search-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="input-group" style="top:40px;">
+								<div class="input-group-btn search-panel">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<span id="search_concept">Filter by</span> <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" role="menu">
+									  <li><a href="#" class="down">Loksewa Book</a></li>
+									  <li><a href="#" class="down">Story Book</a></li>
+									  <li><a href="#" class="down">+2 Book</a></li>
+									  <li><a href="#" class="down">Novel</a></li>
+									</ul>
+								</div>
+								<input type="hidden" name="search_param" value="all" id="search_param">
+								<input type="text" class="form-control" name="x" placeholder="Search books...">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+								</span>
+							</div>
+				</div>
+		</div>
+	</div>
+</section>
+<section class="bgwhite p-t-55 p-b-65">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
+					<div class="leftbar p-r-20 p-r-0-sm">
+						<!--  -->
+						<h4 class="m-text14 p-b-7">
+							Categories
+						</h4>
+
+						<ul class="p-b-54">
+							<li class="p-t-4">
+								<a href="#" class="s-text13 active1">
+									All
+								</a>
+							</li>
+
+							<li class="p-t-4">
+								<a href="#" class="s-text13">
+									Loksewa Book
+								</a>
+							</li>
+
+							<li class="p-t-4">
+								<a href="#" class="s-text13">
+									Story Book
+								</a>
+							</li>
+
+							<li class="p-t-4">
+								<a href="#" class="s-text13">
+									+2 Book
+								</a>
+							</li>
+
+							<li class="p-t-4">
+								<a href="#" class="s-text13">
+									Novel
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+					<div class="row">
+						{% for obj in object_list %}
+						<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+							<!-- Block2 -->
+							<div class="block2">
+								<div class="block2-pic hov-img0">
+								{% if obj.image %}
+								<img src="{{ obj.image.url }}" alt="IMG-PRODUCT">
+								{% endif %}
+								<a href="{{ obj.get_absolute_url }}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+									Quick View
+								</a>
+						</div>
+								<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="#" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									{{ obj.title }}
+
+								</a>
+
+								<span class="stext-105 cl3">
+									<del class="mr-2">${{ obj.discount_price }}</del>${{ obj.price }}
+								</span>
+							</div>
+
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="/static/images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="/static/images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+							</div>
+						</div>
+						{% endfor %}
+						</div>
+					<div class="pagination">
+						<span class="step-links">
+							{% if object_list.has_previous %}
+								<a class="btn btn-outline-primary mb-4" href="?page=1">First</a>
+        						<a class="btn btn-outline-primary mb-4" href="?page={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
+<!--								<a href="?page={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>-->
+							{% endif %}
+
+							{% for num in object_list.paginator.page_range %}
+								{% if object_list.number == num %}
+								  <a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+								{% elif num > object_list.number|add:'-3' and num < object_list.number|add:'3' %}
+								  <a class="btn btn-outline-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+								{% endif %}
+							  {% endfor %}
+
+<!--							<span class="current">-->
+<!--								Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.-->
+<!--							</span>-->
+
+							{% if object_list.has_next %}
+								<a class="btn btn-outline-primary mb-4" href="?page={{ page_obj.paginator.num_pages }}">Next</a>
+        						<a class="btn btn-outline-primary mb-4" href="?page={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Last</a>
+<!--								<a href="?page={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>-->
+							{% endif %}
+						</span>
+					</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

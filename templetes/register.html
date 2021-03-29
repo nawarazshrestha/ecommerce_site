@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns:font-weight="http://www.w3.org/1999/xhtml" xmlns:text-align="http://www.w3.org/1999/xhtml"
+      xmlns:font-size="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+</head>
+<body>
+{% if messages %}
+    <div class="messages container mt-2">
+        {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{ message.tags }}{% endif %}" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+        </div>
+        {% endfor %}
+    </div>
+  {% endif %}
+    <div class="container">
+        <form class="form-group" action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+            <h1 style="text-align:center; font-weight:bold; font-size:43px;">Create new account</h1>
+            <div class="row jumbotron">
+                <div class="col-md-6 form-group">
+                    <label>User name</label>
+                    <input type="text" name="username" class="form-control" placeholder="User name">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label >First name</label>
+                    <input type="text" name="first_name" class="form-control" placeholder="First name">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label >Last name</label>
+                    <input type="text" name="last_name" class="form-control" placeholder="Last name">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label >Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label >password</label>
+                    <input type="Password" name="password1" class="form-control" placeholder="Password">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label >Address</label>
+                    <input type="text" name="address" class="form-control" placeholder="Address">
+                </div>
+                 <div class="col-md-6 form-group">
+                    <label >Conform-password</label>
+                    <input type="Password" name="password2" class="form-control" placeholder="Password">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label >Phone Number</label>
+                    <input type="text" name="phone" class="form-control" placeholder="Phone Number">
+                </div>
+                <div class="col-md-12" style="text-align: center; margin-top:20px;">
+                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                </div>
+               <div>
+                   <a href="#" class="col-md-12" style="text-align: center;">
+                       You Have Already Your Account?
+                   </a>
+               </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

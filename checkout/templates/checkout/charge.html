@@ -1,0 +1,10 @@
+{% extends 'base1.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container mt-5" style="position:relative; padding-top:75px; text-align:center">
+<h2 class="text-center">Thanks, you for your Orders</h2>
+<a href="{% url 'index' %}" class="btn btn-success">My Orders</a>
+</div>
+
+{% endblock %}

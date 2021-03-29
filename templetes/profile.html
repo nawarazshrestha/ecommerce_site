@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <link rel="icon" type="image/png" href="{% static 'images/icons/book icon.jpg' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'profile/profile1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-img">
+                <img src="/static/images/top1.jpg" width="200" alt="">
+            </div>
+            <div class="profile-nav-info">
+                <h3 class="user-name">{{ user.username }}</h3>
+                <div class="address">
+                    <span class="email">{{ user.email }}</span>
+                </div>
+            </div>
+            <div class="profile-option">
+                <div class="notification">
+                    <i class="fa fa-bell"></i>
+                    <span class="alert-message">1</span>
+                </div>
+            </div>
+        </div>
+            <div class="main-bd">
+                <div class="left-side">
+                    <div class="profile-side">
+                        {% for d in data %}
+                         <p class="mobile-no">
+                            <i class="fa fa-map-marker"></i> {{d.address}}
+                        </p>
+                        <p class="mobile-no">
+                            <i class="fa fa-phone"></i> {{d.phone}}
+                        </p>
+                         {% endfor %}
+                        <p class="user-mail"><i class="fa fa-envelope"></i> {{ user.email }} </p>
+                        <div class="user-bio">
+                            <p class="bio">
+                                Paragraphs can contain many different kinds of information. A paragraph could contain a series of brief examples or a single long illustration of a general point.
+                                It might describe a place, character, or process; narrate a series of events; compare or contrast two or more things; classify items into categories; or
+                            </p>
+                        </div>
+                        <div class="profile-btn">
+                            <button class="chatbtn"><i class="fa fa-comment"></i> Chart </button>
+                            <button class="createbtn"><i class="fa fa-plus"></i> Create </button>
+                        </div>
+                        <div class="user-rating">
+                            <h3 class="rating">4.5</h3>
+                            <div class="rate">
+                                <div class="stars">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <span class="no-user">
+                                    <span>123</span>&nbsp;&nbsp; reviews
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        <div class="right-side">
+                            <div class="nav2">
+                                <ul>
+                                    <li onclick="tabs(0)" class="user-post active">Posts</li>
+                                    <li onclick="tabs(1)" class="user-review">Reviews</li>
+                                    <li onclick="tabs(2)" class="user-setting">Settings</li>
+                                </ul>
+                            </div>
+                        <div class="profile-body">
+                            <div class="profile-posts tab">
+                                <h1>Post</h1>
+                                <p>Paragraphs can contain many different kinds of information. A paragraph could contain a series of brief examples or a single long illustration of a general point.
+                                It might describe a place, character, or process; narrate a series of events; compare or contrast two or more things; classify items into categories; or</p>
+                            </div>
+                            <div class="profile-review tab">
+                                <h1>Review</h1>
+                                <p>Paragraphs can contain many different kinds of information. A paragraph could contain a series of brief examples or a single long illustration of a general point.
+                                It might describe a place, character, or process; narrate a series of events; compare or contrast two or more things; classify items into categories; or</p>
+                            </div>
+                            <div class="profile-setting tab">
+                                <h1>Setting</h1>
+                                <p>Because a Terms and Conditions agreement is the agreement where you inform the users of your website about the rules,
+                                    terms and guidelines that they need to follow in order to use and access your website,
+                                    a Terms and Conditions agreement has become extremely important.</p>
+                                <div class="form-group" style="text-align: center;">
+								   <a href="{% url 'password_change' %}">
+									   Do You Want To Change a Password?
+								   </a>
+               					</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'profile/main1.js' %}"></script>
+</body>
+</html>
